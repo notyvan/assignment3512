@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Function to create product container with
-    // Structure: Image, Name, Price, Add (to cart I'm assuming)
+    // Structure: Image, Name, Price, Add to cart
     function createProductElement(product) {
 
     // Create Product Div
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const productInfoElement = _('div');
     productInfoElement.classList.add('info');
 
-    // Create Product Footer Div: productInfo + Add button
+    // Create Product Footer Div: productInfo + Add to cartbutton
     const productFooterElement = _('div');
     productFooterElement.classList.add('footer');
     
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const productPriceElement = _('p');
     productPriceElement.textContent = `$${product.price}`;
 
-    // Create Add Button
+    // Create Add to cart Button
     const productBtn = _('button');
     productBtn.type = 'button';
     productBtn.classList.add('add');
@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
     productInfoElement.appendChild(productNameElement);
     productInfoElement.appendChild(productPriceElement);
 
-    // Then contain productInfo into productFooterElement with Add Button
+    // Then contain productInfo into productFooterElement with Add to cart Button
     productFooterElement.appendChild(productInfoElement);
     productFooterElement.appendChild(productBtn);
 
@@ -61,10 +61,22 @@ document.addEventListener('DOMContentLoaded', () => {
     // Contain Image and Footer into product Element
     productElement.appendChild(productImageElement);
     productElement.appendChild(productFooterElement);
+    
+    // Create event listeners for add to cart button and image
+    productImageElement.addEventListener('click', () => {
+        alert(`Product ID: ${product.id}`);
+    });
+
+    productBtn.addEventListener('click', () => {
+        alert(`Product ID: ${product.id}, ${product.title} has been Added to Cart`)
+    });
+
+
     return productElement;
 }
 
 });
+
 
 
 

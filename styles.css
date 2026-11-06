@@ -4,15 +4,40 @@
     padding: 0;
 }
 
-section {
-    display: flex;
-    gap: 20px;
+header {
 
 }
+
+main {
+    max-width: 600px;
+    margin: 0 auto;
+
+}
+
+section {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px 16px;
+}
+
+
+
+
+
+
+
+
 
 /* Testing */
 .item {
     width: 200px;
-    height: 200px;
     background-color: yellow; 
+}
+.add {
+    width: 18px;
+    height: 18px;
+    padding: 0;
+    border: 1px solid black;
+    font-size: 14px;
+    cursor: pointer;
 }

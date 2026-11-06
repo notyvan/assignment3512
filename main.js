@@ -1,67 +1,70 @@
 import config from './data/data-minifed.json' with { type: 'json' };
 
+// Helper Functions
+const $ = (selector) => document.querySelector(selector);
+// const $$ = (selector) => document.querySelectorAll(selector); since it's not used yet, comment for now
+const _ = (createElement) => document.createElement(createElement);
+const productsContainer = $('#product-container');
+
 document.addEventListener('DOMContentLoaded', () => {
-    const productsContainer = $('#product-container');
-    
-    for (let i = 0; i <= 20; i++) {
+    // List first 20 products of the json
+    for (let i = 0; i < 20; i++) {
         const productElement = createProductElement(config.products[i]);
         productsContainer.appendChild(productElement);
     }
 
+    // Function to create product container with
+    // Structure: Image, Name, Price, Add (to cart I'm assuming)
     function createProductElement(product) {
-    // Create Div
-    const productElement = document.createElement('div');
+
+    // Create Product Div
+    const productElement = _('div');
     productElement.classList.add('item');
 
     // Create Image
     const productImageElement = _('img');
     productImageElement.src = product.thumbnail;
-    productImageElement.width = 200;
+
+    // Create product info div: name, price
+    const productInfoElement = _('div');
+    productInfoElement.classList.add('info');
+
+    // Create Product Footer Div: productInfo + Add button
+    const productFooterElement = _('div');
+    productFooterElement.classList.add('footer');
+    
+    // Create Name
     const productNameElement = _('h2');
     productNameElement.textContent = product.title;
+
+    // Create Price
     const productPriceElement = _('p');
     productPriceElement.textContent = `$${product.price}`;
 
+    // Create Add Button
     const productBtn = _('button');
+    productBtn.type = 'button';
     productBtn.classList.add('add');
     productBtn.textContent = '+';
+    productBtn.setAttribute('aria-label', `Add ${product.title} to cart`);
+   
 
+    // Contain Name and Price element in productInfoElement
+    productInfoElement.appendChild(productNameElement);
+    productInfoElement.appendChild(productPriceElement);
 
+    // Then contain productInfo into productFooterElement with Add Button
+    productFooterElement.appendChild(productInfoElement);
+    productFooterElement.appendChild(productBtn);
+
+        
+    // Contain Image and Footer into product Element
     productElement.appendChild(productImageElement);
-    productElement.appendChild(productNameElement);
-    productElement.appendChild(productPriceElement);
-    productElement.appendChild(productBtn);
+    productElement.appendChild(productFooterElement);
     return productElement;
 }
-
-    
 
 });
 
 
 
-
-// for (let p of config.products) {
-    // console.log(p);    
-// }
-// 
-
-// const productsContainer = document.querySelector('#product-container');
-
-// for (let i = 0; i < 10; i++) {
-// console.log(config.products[i]);
-    // const productElement = createProductElement(config.products[i]);
-    // productsContainer.appendChild(productElement);
-// }
-
-
-
-
-
-
-
-// Helper Functions
-
-const $ = (selector) => document.querySelector(selector);
-const $$ = (selector) => document.querySelectorAll(selector);
-const _ = (createElement) => document.createElement(createElement);

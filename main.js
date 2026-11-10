@@ -46,7 +46,8 @@ document.addEventListener('DOMContentLoaded', () => {
     productBtn.type = 'button';
     productBtn.classList.add('add');
     productBtn.textContent = '+';
-    productBtn.setAttribute('aria-label', `Add ${product.title} to cart`);
+    // productBtn.setAttribute('aria-label', `Add ${product.title} to cart`);
+    productBtn.dataset.productID = product.id;
    
 
     // Contain Name and Price element in productInfoElement

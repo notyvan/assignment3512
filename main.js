@@ -46,7 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
     productBtn.type = 'button';
     productBtn.classList.add('add');
     productBtn.textContent = '+';
-    // productBtn.setAttribute('aria-label', `Add ${product.title} to cart`);
     productBtn.dataset.productID = product.id;
    
 
@@ -78,6 +77,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
+
+// function findMatch(product) {
+// const id = product.target.dataset.id;
+    // let match;
+    // for (let p of product) {
+        // if (p.id == id) {
+            // match = p;
+            // break;
+        // }
+    // }
+    // if (match) {
+        // do whatever
+    // }
+// 
+// }
 
 
 

@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
 }
 
 });
-
+// https://salonimehta27.medium.com/building-single-page-application-project-in-javascript-b55b767fdf53 
 
 // function findMatch(product) {
 // const id = product.target.dataset.id;

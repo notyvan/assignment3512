@@ -77,10 +77,105 @@ main {
     display: none;
 }
 
-/* Browse: filters on the left, products on the right */
+
+/*  BROWSE: SIDEBAR  */
+
 .browse-layout {
     display: grid;
     grid-template-columns: 220px 1fr;
     gap: 24px;
     align-items: start;
+}
+
+
+.browse-filters {
+    background: #e9e9e9;
+    padding: 16px 20px;
+    border-radius: 4px;
+}
+
+.browse-filters h2 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+.filter-group {
+    margin-bottom: 20px;
+}
+
+
+/* Group title on the left, blue arrow on the right */
+.filter-toggle {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: none;
+    border: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 4px 0;
+}
+
+.filter-toggle::after {
+    content: "▼";
+    color: #4a7fc1;
+    font-size: 0.8rem;
+}
+
+/* Arrow points right when the group is closed */
+.filter-toggle:has(+ .filter-body.hidden)::after {
+    content: "▶";
+}
+
+/* Each option on its own line, indented */
+.filter-body,
+#browse-ratings {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px 0 0 12px;
+}
+
+.filter-body label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: #666;
+}
+
+/* Inputs */
+.filter-body input[type="text"],
+.filter-body input[type="number"] {
+    border: 1px solid #bbb;
+    background: #fff;
+    padding: 4px 6px;
+}
+
+.filter-body input[type="text"] {
+    width: 100%;
+}
+
+.filter-body input[type="number"] {
+    width: 70px;
+}
+
+/* Blue stars */
+#browse-ratings label {
+    color: #4a7fc1;
+    font-size: 1.1rem;
+}
+
+/* Selected filters in bold (requirement) */
+.filter-body label:has(input:checked) {
+    font-weight: 700;
+    color: #222;
+}
+
+#browse-ratings {
+    padding: 0;
+    gap: 4px;
 }

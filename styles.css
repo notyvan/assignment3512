@@ -23,7 +23,7 @@
 /* Item Grid container */
 
 main {
-    max-width: 800px;
+    max-width: 1200px;
     margin: 0 auto;
     background-color: grey;
     padding: 0 16px;
@@ -84,7 +84,7 @@ main {
     display: grid;
     grid-template-columns: 220px 1fr;
     gap: 24px;
-    align-items: start;
+    align-items: stretch;
 }
 
 

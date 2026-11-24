@@ -2,11 +2,129 @@ import config from './data/data-minifed.json' with { type: 'json' };
 
 // Helper Functions
 const $ = (selector) => document.querySelector(selector);
-// const $$ = (selector) => document.querySelectorAll(selector); since it's not used yet, comment for now
+const $$ = (selector) => document.querySelectorAll(selector);
 const _ = (createElement) => document.createElement(createElement);
-const productsContainer = $('#product-container');
+
 
 document.addEventListener('DOMContentLoaded', () => {
+
+
+    // Trying to do adding to cart updating
+    // Cart updated in header but havent done anything for cart screen
+    const cart = [];
+    let currentProduct = null;
+
+    function updateCartCount() {
+        let total = 0;
+        for (let item of cart) {
+            total += item.quantity;
+        }
+        $("#cart-count").textContent = total;
+    }
+
+    function addToCart(product, quantity) {
+        const existing = cart.find(item => item.product.id === product.id)
+        const inCart = existing ? existing.quantity : 0;
+
+        if (inCart + quantity > product.stock) {
+            alert(`Only ${product.stock} in stock, have ${inCart} greedy boy`);
+            return false;
+        }
+
+        if (existing) {
+            existing.quantity =+ quantity;
+        } else {
+            cart.push({product: product, quantity: quantity});
+        }
+
+        updateCartCount();
+        return true;
+    }
+    
+
+    const singleProductAdd = $("#product-add");
+    singleProductAdd.addEventListener("click", () => {
+        const qty = parseInt($("#product-qty").value);
+
+        if (isNaN(qty) || qty < 1) {
+            alert("Do it right");
+            return;
+        }
+
+        addToCart(currentProduct, qty);
+    });
+// End of cart
+
+
+
+    // nav link and view swtiching
+    const views = $$(".view");
+    const navLinks = $$(".navbar a");
+
+    function showView(name) {
+        for (let v of views) {
+            v.classList.add("hidden");
+        }
+        $(`#${name}`).classList.remove("hidden");
+
+    }
+
+    for (let n of navLinks) {
+        n.addEventListener("click", (e) => {
+            e.preventDefault();
+            showView(n.dataset.view);
+        });
+    }
+    // End of view switching
+
+
+    // Singel product
+    function makeStars(rating) {
+        const full = Math.round(rating);
+        let stars = "";
+
+        for (let i = 0; i < 5; i++) {
+            if (i < full) {
+                stars += "★";
+            } else {
+                stars += "☆";
+            }
+        }
+        return stars;
+    }
+
+    function showProduct(product) {
+        currentProduct = product;
+        $("#product-image").src = product.images[0];
+        $("#product-image").alt = product.title;
+        $("#product-title").textContent = product.title;
+        $("#product-price").textContent = `$${product.price}`;
+        $("#product-sku").textContent = `SKU $${product.sku}`;
+        $("#product-rating").textContent = makeStars(product.rating);
+        $("#product-stock").textContent = product.stock;
+        $("#product-description").textContent = product.description;
+        $("#product-qty").value = 1;
+
+        const tagsBox = $("#product-tags");
+
+        for (let tag of product.tags) {
+            // console.log(tag);
+            const span = _("span");
+            span.classList.add("tag");
+            span.textContent = tag;
+            tagsBox.appendChild(span);
+        }
+
+        // Havent added the specification and reviews, i kinda wanna clean up my function but too lazy
+        showView("product");
+    }
+
+    // end of single product
+
+   
+
+    // Browse view functionality
+    const productsContainer = $('#product-container');
     // List first 20 products of the json
     for (let i = 0; i < 20; i++) {
         const productElement = createProductElement(config.products[i]);
@@ -64,7 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Create event listeners for add to cart button and image
     productImageElement.addEventListener('click', () => {
-        alert(`Product ID: ${product.id}`);
+        showProduct(product);
     });
 
     productBtn.addEventListener('click', () => {
@@ -74,6 +192,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     return productElement;
 }
+
+
 
 });
 // https://salonimehta27.medium.com/building-single-page-application-project-in-javascript-b55b767fdf53 

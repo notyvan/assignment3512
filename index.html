@@ -18,23 +18,24 @@
         <header>
             <nav class="navbar">
 
-                <a href="#" class="logo">Place Holder</a>
+                <a href="#" class="logo" data-view="home">Place Holder</a>
 
 
                 <div class="nav-links">
-                    <a href="">Home</a>
-                    <a href="">Browse</a>
-                    <a href="">About</a>
+                    <a href="#" data-view="home">Home</a>
+                    <a href="#" data-view="browse">Browse</a>
+                    <a href="#" data-view="about">About</a>
+                    <a href="#" data-view="product">aaa</a> <!--This is just to test-->
                 </div>
 
-                <a href="" class="cart">CART</a>
+                <a href="#" class="cart" data-view="cart">CART <span id="cart-count">0</span></a>
 
             </nav>
 
         </header>
         
         <!-- Home view -->
-        <section id="home" class="home view">
+        <section id="home" class="view">
             <div class="home-hero">
                 <img id="home-hero-image" class="home-hero-image" src="" alt="">
                 <div class="home-hero-text">
@@ -49,7 +50,7 @@
 
 
         <!-- Browse View -->
-        <section id="browse" class="view">
+        <section id="browse" class="view hidden">
             <h1 class="header">Browse</h1>
 
             <div class="browse-layout">
@@ -123,7 +124,7 @@
         </section>
 
         <!-- Single Product View -->
-        <section id="product" class="single view">
+        <section id="product" class="view hidden">
             <nav id="product-breadcrumb" class="product-breadcrumb"></nav>
 
             <div class="product-layout">
@@ -158,10 +159,10 @@
 
 
 
-        </section>
+
 
         <!-- Shopping cart view -->
-        <section id="cart" class="shopping-cart view">
+        <section id="cart" class="view hidden">
             <h1 class="header">Shopping Cart</h1>
 
             <p id="cart-empty" class="hidden">Your cart is empty.</p>
@@ -210,7 +211,7 @@
 
 
         <!-- About us View -->
-        <section class="about">
+        <section id="about" class="view hidden" >
 
         </section>
 

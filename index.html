@@ -7,6 +7,7 @@
     <title>Assign 1 Temp</title>
 
     <link rel="stylesheet" href="styles.css">
+    <script type="module"src="main.js"></script>
 
 
 </head>
@@ -33,31 +34,180 @@
         </header>
         
         <!-- Home view -->
-        <section class="home">
-        
-        
+        <section id="home" class="home view">
+            <div class="home-hero">
+                <img id="home-hero-image" class="home-hero-image" src="" alt="">
+                <div class="home-hero-text">
+                    <h1 class="home-title">Everyday essentials, picked for you</h1>
+                    <a href="#" class="home-link" data-view="browse">Shop Now</a>
+                </div>
+            </div>
+
+            <h2 class="home-heading">Featured Products</h2>
+            <div id="home-featured" class="home-featured"></div>
         </section>
+
+
 
         <!-- Browse View -->
-        <h1 class="header">
-            Browse
-        </h1>
-        <section class="products" id="product-container">
-            
+        <section id="browse" class="view">
+            <h1 class="header">Browse</h1>
+
+            <div class="browse-layout">
+                <!-- Left: filters (each group is an accordion) -->
+                <aside class="browse-filters">
+                    <h2>Departments</h2>
+
+                    <!-- Name -->
+                    <div class="filter-group">
+                        <button class="filter-toggle">Name ▼</button>
+                        <div class="filter-body">
+                            <input type="text" id="browse-name" placeholder="Search by name">
+                        </div>
+                    </div>
+
+                    <!-- Category (checkboxes built by JS from the data using a Set) -->
+                    <div class="filter-group">
+                        <button class="filter-toggle">Category ▼</button>
+                        <div class="filter-body">
+                            <div id="browse-categories"></div>
+                        </div>
+                    </div>
+
+                    <!-- Rating -->
+                    <div class="filter-group">
+                        <button class="filter-toggle">Rating ▼</button>
+                        <div class="filter-body">
+                            <div id="browse-ratings">
+                                <label><input type="checkbox" value="1"> ★</label>
+                                <label><input type="checkbox" value="2"> ★★</label>
+                                <label><input type="checkbox" value="3"> ★★★</label>
+                                <label><input type="checkbox" value="4"> ★★★★</label>
+                                <label><input type="checkbox" value="5"> ★★★★★</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Price -->
+                    <div class="filter-group">
+                        <button class="filter-toggle">Price ▼</button>
+                        <div class="filter-body">
+                            <label>
+                                <input type="checkbox" id="browse-under-check"> Under
+                                <input type="number" id="browse-under" min="0">
+                            </label>
+                            <label>
+                                <input type="checkbox" id="browse-over-check"> Over
+                                <input type="number" id="browse-over" min="0">
+                            </label>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Right: results -->
+                <div class="browse-results">
+                    <div class="browse-toolbar">
+                        <h2>Results</h2>
+                        <button id="browse-clear">✕ Clear All</button>
+                        <label for="browse-sort">Sort</label>
+                        <select id="browse-sort">
+                            <option value="title">Product Name</option>
+                            <option value="price">Price</option>
+                            <option value="category">Category</option>
+                        </select>
+                    </div>
+
+                    <section class="products" id="product-container"></section>
+                    <p id="browse-empty" class="hidden">No products match your filters.</p>
+                </div>
+            </div>
         </section>
-        
 
         <!-- Single Product View -->
-        <section class="single">
+        <section id="product" class="single view">
+            <nav id="product-breadcrumb" class="product-breadcrumb"></nav>
+
+            <div class="product-layout">
+                <img id="product-image" class="product-image" src="" alt="">
+
+                <div class="product-info">
+                    <h1 id="product-title"></h1>
+                    <p id="product-price" class="product-price"></p>
+                    <p class="product-meta">
+                        SKU: <span id="product-sku"></span>
+                        <span id="product-rating" class="product-rating"></span>
+                    </p>
+                    <div id="product-tags" class="product-tags"></div>
+                    <p id="product-stock" class="product-stock"></p>
+                    <p id="product-description"></p>
+
+                    <div class="product-buy">
+                        <label for="product-qty">Quantity</label>
+                        <input type="number" id="product-qty" value="1" min="1">
+                        <button id="product-add">+ Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-tabs">
+                <button class="product-tab active" data-tab="specs">Specifications</button>
+                <button class="product-tab" data-tab="reviews">Reviews</button>
+            </div>
+            <div id="product-specs" class="product-panel"></div>
+            <div id="product-reviews" class="product-panel hidden"></div>
+        </section>
+
 
 
         </section>
 
         <!-- Shopping cart view -->
-        <section class="shopping-cart">
+        <section id="cart" class="shopping-cart view">
+            <h1 class="header">Shopping Cart</h1>
 
+            <p id="cart-empty" class="hidden">Your cart is empty.</p>
 
+            <table class="cart-table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th colspan="2">Items</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody id="cart-items"></tbody>
+            </table>
+
+            <div class="cart-bottom">
+                <div class="cart-shipping">
+                    <h2>Shipping</h2>
+                    <select id="cart-shipping-method">
+                        <option value="standard">Standard</option>
+                        <option value="express">Express</option>
+                        <option value="priority">Priority</option>
+                    </select>
+                    <select id="cart-destination">
+                        <option value="canada">Canada</option>
+                        <option value="us">United States</option>
+                        <option value="intl">International</option>
+                    </select>
+                </div>
+
+                <div class="cart-summary">
+                    <h2>Summary</h2>
+                    <dl class="cart-totals">
+                        <dt>Merchandise</dt> <dd id="cart-merch">$0.00</dd>
+                        <dt>Shipping</dt>    <dd id="cart-shipping">$0.00</dd>
+                        <dt>Tax</dt>         <dd id="cart-tax">$0.00</dd>
+                        <dt>Total</dt>       <dd id="cart-total">$0.00</dd>
+                    </dl>
+                    <button id="cart-checkout">Checkout</button>
+                </div>
+            </div>
         </section>
+
 
 
         <!-- About us View -->
@@ -66,7 +216,10 @@
         </section>
 
     </main>
-    <script type="module"src="main.js"></script>
+
+     <!-- Toast message (used by Add to Cart and Checkout) -->
+     <div id="toast" class="toast hidden"></div>
+    
 </body>
 
 </html>

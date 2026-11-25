@@ -50,7 +50,7 @@ main {
 .item img {
     border: 1px solid black;
     width: 100%;
-    transition: transform 0.3 ease;
+    transition: transform 0.3s ease;
 }
 
 .item img:hover {
@@ -95,7 +95,7 @@ main {
 
 /*  BROWSE: SIDEBAR  */
 
-.header {
+#browse > .header {
     font-size: 3rem;
     
     margin-bottom: 16px;

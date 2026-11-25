@@ -1,5 +1,5 @@
 import config from './data/data-minifed.json' with { type: 'json' };
-import { setUpFilterAccordions, buildCategoryFilters } from './browse.js';
+import { setUpFilterAccordions, buildCategoryFilters, getFilters, filterProducts, sortProducts, setUpBrowseFilters } from './browse.js';
 
 // Helper Functions
 const $ = (selector) => document.querySelector(selector);
@@ -124,13 +124,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
    
 
-    // Browse view functionality
+    //  Browse view functionality
     const productsContainer = $('#product-container');
-    // List first 20 products of the json
-    for (let i = 0; i < 20; i++) {
-        const productElement = createProductElement(config.products[i]);
-        productsContainer.appendChild(productElement);
+
+    //Draws the Browse grid using the sort and current filters.
+    function renderBrowse(){
+        const filters = getFilters();
+        const matches = sortProducts(filterProducts(config.products, filters), filters.sortBy);
+
+        productsContainer.innerHTML = "";
+        for(let p of matches){
+            productsContainer.appendChild(createProductElement(p));
+        }
+
+        //No products match
+        if(matches.length === 0){
+            $("#browse-empty").classList.remove("hidden");
+        } else {
+            $("#browse-empty").classList.add("hidden");
+        }
+
     }
+   //remove the below code.
+
+
+    // const productsContainer = $('#product-container');
+    // // List first 20 products of the json
+    // for (let i = 0; i < 20; i++) {
+    //     const productElement = createProductElement(config.products[i]);
+    //     productsContainer.appendChild(productElement);
+    // }
 
     // Function to create product container with
     // Structure: Image, Name, Price, Add to cart
@@ -196,8 +219,11 @@ document.addEventListener('DOMContentLoaded', () => {
     
 }
 
-    setUpFilterAccordions();
-    buildCategoryFilters(config.products);
+        // Browse filters (browse.js)
+        setUpFilterAccordions();
+        buildCategoryFilters(config.products);
+        setUpBrowseFilters(renderBrowse);
+        renderBrowse();
 
 
 });

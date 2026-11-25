@@ -27,9 +27,10 @@
 /* Item Grid container */
 
 main {
-    max-width: 1200px;
+    width:95%;
+    max-width: 1600px;
     margin: 0 auto;
-    background-color: grey;
+    
     padding: 0 16px;
 }
 
@@ -39,8 +40,8 @@ main {
 
 .products {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 28px 16px;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));    
+    gap: 24px 16px;
 }
 
 
@@ -55,6 +56,17 @@ main {
 .item img:hover {
     cursor: pointer;
     transform: scale(1.05);
+}
+
+.item h2 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-top: 8px;
+}
+
+.item p {
+    font-size: 0.85rem;
+   
 }
 
 .footer {
@@ -91,6 +103,13 @@ main {
 
 
 .browse-filters {
+    background: #e9e9e9;
+    padding: 16px 20px;
+    border-radius: 4px;
+}
+
+/* Results panel: same grey box as the sidebar */
+.browse-results {
     background: #e9e9e9;
     padding: 16px 20px;
     border-radius: 4px;
@@ -181,3 +200,6 @@ main {
     padding: 0;
     gap: 4px;
 }
+
+
+

@@ -106,14 +106,18 @@
                 <!-- Right: results -->
                 <div class="browse-results">
                     <div class="browse-toolbar">
-                        <h2>Results</h2>
-                        <button id="browse-clear">✕ Clear All</button>
-                        <label for="browse-sort">Sort</label>
-                        <select id="browse-sort">
-                            <option value="title">Product Name</option>
-                            <option value="price">Price</option>
-                            <option value="category">Category</option>
-                        </select>
+                        <div class="browse-sort">
+                            <label for="browse-sort">Sort</label>
+                            <select id="browse-sort">
+                                <option value="title">Product Name</option>
+                                <option value="price">Price</option>
+                                <option value="category">Category</option>
+                            </select>
+                        </div>
+                        <div class="browse-heading">
+                            <h2>Results</h2>
+                            <button id="browse-clear">✕ Clear All</button>
+                        </div>
                     </div>
 
                     <section class="products" id="product-container"></section>

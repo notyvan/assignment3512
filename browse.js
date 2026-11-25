@@ -59,9 +59,9 @@ export function getFilters() {
         name: document.querySelector("#browse-name").value.trim().toLowerCase(),
         categories: categories,
         ratings: ratings,
-        useUnder: document.querySelector("#browse-under-check").checked,
+        useUnder: document.querySelector("#browse-under-check").checked && document.querySelector("#browse-under").value !== "",
         under: Number(document.querySelector("#browse-under").value),
-        useOver: document.querySelector("#browse-over-check").checked,
+        useOver: document.querySelector("#browse-over-check").checked && document.querySelector("#browse-over").value !== "",
         over: Number(document.querySelector("#browse-over").value),
         sortBy: document.querySelector("#browse-sort").value
     };

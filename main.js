@@ -145,15 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
     }
-   //remove the below code.
-
-
-    // const productsContainer = $('#product-container');
-    // // List first 20 products of the json
-    // for (let i = 0; i < 20; i++) {
-    //     const productElement = createProductElement(config.products[i]);
-    //     productsContainer.appendChild(productElement);
-    // }
+   
 
     // Function to create product container with
     // Structure: Image, Name, Price, Add to cart
@@ -209,9 +201,14 @@ document.addEventListener('DOMContentLoaded', () => {
         showProduct(product);
     });
 
-    productBtn.addEventListener('click', () => {
-        alert(`Product ID: ${product.id}, ${product.title} has been Added to Cart`)
+    productNameElement.addEventListener('click', () => {
+        showProduct(product);
     });
+
+    productBtn.addEventListener('click', () => {
+        addToCart(product, 1);
+    });
+
 
 
     return productElement;

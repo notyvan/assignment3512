@@ -1,4 +1,5 @@
 import config from './data/data-minifed.json' with { type: 'json' };
+import { setUpFilterAccordions, buildCategoryFilters } from './browse.js';
 
 // Helper Functions
 const $ = (selector) => document.querySelector(selector);
@@ -191,8 +192,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     return productElement;
+
+    
 }
 
+    setUpFilterAccordions();
+    buildCategoryFilters(config.products);
 
 
 });

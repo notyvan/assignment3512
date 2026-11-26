@@ -1,5 +1,6 @@
 import config from './data/data-minifed.json' with { type: 'json' };
 import { setUpFilterAccordions, buildCategoryFilters, getFilters, filterProducts, sortProducts, setUpBrowseFilters } from './browse.js';
+import { renderBreadcrumb } from './product.js';
 
 // Helper Functions
 const $ = (selector) => document.querySelector(selector);
@@ -99,24 +100,30 @@ document.addEventListener('DOMContentLoaded', () => {
         $("#product-image").src = product.images[0];
         $("#product-image").alt = product.title;
         $("#product-title").textContent = product.title;
-        $("#product-price").textContent = `$${product.price}`;
-        $("#product-sku").textContent = `SKU $${product.sku}`;
+        $("#product-price").textContent = `$${product.price.toFixed(2)}`;
+        $("#product-sku").textContent = product.sku;
         $("#product-rating").textContent = makeStars(product.rating);
-        $("#product-stock").textContent = product.stock;
         $("#product-description").textContent = product.description;
         $("#product-qty").value = 1;
 
-        const tagsBox = $("#product-tags");
+        // In stock or not (requirement)
+        if (product.stock > 0) {
+            $("#product-stock").textContent = `In stock (${product.stock} available)`;
+        } else {
+            $("#product-stock").textContent = "Out of stock";
+        }
 
+        // Tags as pills: clear the old product's tags first
+        const tagsBox = $("#product-tags");
+        tagsBox.innerHTML = "";
         for (let tag of product.tags) {
-            // console.log(tag);
             const span = _("span");
             span.classList.add("tag");
             span.textContent = tag;
             tagsBox.appendChild(span);
         }
 
-        // Havent added the specification and reviews, i kinda wanna clean up my function but too lazy
+        renderBreadcrumb(product);
         showView("product");
     }
 

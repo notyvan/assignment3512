@@ -1,7 +1,6 @@
 import config from './data/data-minifed.json' with { type: 'json' };
 import { setUpFilterAccordions, buildCategoryFilters, getFilters, filterProducts, sortProducts, setUpBrowseFilters } from './browse.js';
-import { renderBreadcrumb } from './product.js';
-
+import { makeStars, renderBreadcrumb, renderSpecs, renderReviews, setUpProductTabs } from './product.js';
 // Helper Functions
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => document.querySelectorAll(selector);
@@ -80,20 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // End of view switching
 
 
-    // Singel product
-    function makeStars(rating) {
-        const full = Math.round(rating);
-        let stars = "";
 
-        for (let i = 0; i < 5; i++) {
-            if (i < full) {
-                stars += "★";
-            } else {
-                stars += "☆";
-            }
-        }
-        return stars;
-    }
 
     function showProduct(product) {
         currentProduct = product;
@@ -122,6 +108,9 @@ document.addEventListener('DOMContentLoaded', () => {
             span.textContent = tag;
             tagsBox.appendChild(span);
         }
+
+        renderSpecs(product);
+        renderReviews(product);
 
         renderBreadcrumb(product);
         showView("product");
@@ -229,6 +218,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setUpBrowseFilters(renderBrowse);
         renderBrowse();
 
+        setUpProductTabs();
 
 });
 // https://salonimehta27.medium.com/building-single-page-application-project-in-javascript-b55b767fdf53 

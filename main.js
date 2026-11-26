@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (existing) {
-            existing.quantity =+ quantity;
+            existing.quantity += quantity;
         } else {
             cart.push({product: product, quantity: quantity});
         }

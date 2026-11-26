@@ -1,6 +1,9 @@
 import config from './data/data-minifed.json' with { type: 'json' };
 import { setUpFilterAccordions, buildCategoryFilters, getFilters, filterProducts, sortProducts, setUpBrowseFilters } from './browse.js';
 import { makeStars, renderBreadcrumb, renderSpecs, renderReviews, setUpProductTabs } from './product.js';
+import { showToast } from './toast.js';
+
+
 // Helper Functions
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => document.querySelectorAll(selector);
@@ -28,8 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const inCart = existing ? existing.quantity : 0;
 
         if (inCart + quantity > product.stock) {
-            alert(`Only ${product.stock} in stock, have ${inCart} greedy boy`);
-            return false;
+            showToast(`Sorry, only ${product.stock} in stock (you already have ${inCart} in your cart).`);            return false;
         }
 
         if (existing) {
@@ -37,6 +39,8 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             cart.push({product: product, quantity: quantity});
         }
+
+        showToast(`Added ${quantity} × ${product.title} to cart`);
 
         updateCartCount();
         return true;
@@ -48,8 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const qty = parseInt($("#product-qty").value);
 
         if (isNaN(qty) || qty < 1) {
-            alert("Do it right");
-            return;
+            showToast("Please enter a quantity of 1 or more.");            return;
         }
 
         addToCart(currentProduct, qty);

@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
             total += item.quantity;
         }
         $("#cart-count").textContent = total;
+        renderCart();
     }
 
     function addToCart(product, quantity) {
@@ -45,6 +46,120 @@ document.addEventListener('DOMContentLoaded', () => {
         updateCartCount();
         return true;
     }
+
+    const TAX_RATE = 0.05;
+    const FREE_SHIPPING = 500;
+    const SHIPPING_COSTS = {
+        standard: {canada: 10, us: 15, intl: 20},
+        express: {canada: 25, us: 25, intl: 30},
+        priority: {canada: 35, us: 50, intl: 50}
+    };
+
+    function formatMoney(amount) {
+        return `$${amount.toFixed(2)}`
+    }
+
+    function createCartRow(item) {
+        const row = _("tr");
+
+        const deleteCell = _("td");
+        const deleteBtn = _("button");
+        deleteBtn.type = "button";
+        deleteBtn.classList.add("cart-delete");
+        deleteBtn.textContent = "-";
+        deleteBtn.title = "Remove from Cart";
+        deleteBtn.addEventListener("click", () => {
+            cart.splice(cart.indexOf(item), 1);
+            updateCartCount();
+        });
+        deleteCell.appendChild(deleteBtn);
+
+        const imageCell = _("td");
+        const image = _("img");
+        image.src = item.product.thumbnail;
+        image.alt = item.product.title;
+        image.classList.add("cart-thumb");
+        image.addEventListener("click", () => showProduct(item.product));
+        imageCell.appendChild(image);
+
+        const titleCell = _("td");
+        titleCell.textContent = item.product.title;
+
+        const priceCell = _("td");
+        priceCell.textContent = formatMoney(item.product.price);
+
+        const qtyCell = _("td");
+        qtyCell.textContent = item.quantity;
+        
+        const subtotalCell = _("td");
+        subtotalCell.textContent = formatMoney(item.product.price * item.quantity);
+
+        row.appendChild(deleteCell);
+        row.appendChild(imageCell);
+        row.appendChild(titleCell);
+        row.appendChild(priceCell);
+        row.appendChild(qtyCell);
+        row.appendChild(subtotalCell);
+        return row
+    }
+
+    function getShippingCost(item, method, destination) {
+        if (item > FREE_SHIPPING) {
+            return 0;
+        }
+        return SHIPPING_COSTS[method][destination];
+    }
+
+    function renderCart() {
+        const tbody = $("#cart-items");
+        tbody.textContent = "";
+
+
+        const isEmpty = cart.length === 0;
+
+        if (isEmpty) {
+            $("#cart-empty").classList.remove("hidden");
+            $(".cart-table").classList.add("hidden");
+        } else {
+            $("#cart-empty").classList.add("hidden");
+            $(".cart-table").classList.remove("hidden");
+        }
+
+        $("#cart-shipping-method").disabled = isEmpty;
+        $("#cart-destination").disabled = isEmpty;
+        $("#cart-checkout").disabled = isEmpty;
+
+        let item = 0;
+        for (let i of cart) {
+            item += i.product.price * i.quantity;
+            tbody.appendChild(createCartRow(i));
+        }
+
+        const method = $("#cart-shipping-method").value;
+        const destination = $("#cart-destination").value;
+
+        const shipping = isEmpty ? 0 : getShippingCost(item, method, destination);
+        const tax = destination === "canada" ? item * TAX_RATE : 0;
+        const total = item + shipping + tax;
+
+        $("#cart-merch").textContent = formatMoney(item);
+        $("#cart-shipping").textContent = formatMoney(shipping);
+        $("#cart-tax").textContent = formatMoney(tax);
+        $("#cart-total").textContent = formatMoney(total);
+    }
+
+
+    $("#cart-shipping-method").addEventListener("change", renderCart);
+    $("#cart-destination").addEventListener("change", renderCart);
+
+    $("#cart-checkout").addEventListener("click", () => {
+        cart.length = 0;
+        $("#cart-shipping-method").value = "standard";
+        $("#cart-destination").value = "canada";
+        updateCartCount();
+        showToast("TAHNKS");
+        showView("home");
+    });
     
 
     const singleProductAdd = $("#product-add");
@@ -57,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         addToCart(currentProduct, qty);
     });
-// End of cart
+
 
 
 
@@ -71,15 +186,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         $(`#${name}`).classList.remove("hidden");
 
+        if (name === "cart") {
+            renderCart();
+        }
     }
 
+  
     for (let n of navLinks) {
         n.addEventListener("click", (e) => {
             e.preventDefault();
             showView(n.dataset.view);
         });
     }
-    // End of view switching
+   
 
 
 
@@ -119,7 +238,7 @@ document.addEventListener('DOMContentLoaded', () => {
         showView("product");
     }
 
-    // end of single product
+  
 
    
 
@@ -222,24 +341,10 @@ document.addEventListener('DOMContentLoaded', () => {
         renderBrowse();
 
         setUpProductTabs();
+        updateCartCount();
 
 });
-// https://salonimehta27.medium.com/building-single-page-application-project-in-javascript-b55b767fdf53 
 
-// function findMatch(product) {
-// const id = product.target.dataset.id;
-    // let match;
-    // for (let p of product) {
-        // if (p.id == id) {
-            // match = p;
-            // break;
-        // }
-    // }
-    // if (match) {
-        // do whatever
-    // }
-// 
-// }
 
 
 

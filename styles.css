@@ -648,3 +648,54 @@ main {
 .about-close-btn:hover {
     background: #d0d0d0;
 }
+
+/* ===================== SPECIFICATIONS / REVIEWS ===================== */
+.spec-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.spec-table th,
+.spec-table td {
+    text-align: left;
+    padding: 8px 12px;
+    border-bottom: 1px solid #eee;
+}
+
+.spec-table th {
+    width: 160px;
+    color: #666;
+    font-weight: 600;
+}
+
+.review {
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.review-stars {
+    color: #4a7fc1;
+}
+
+.review-comment {
+    margin: 4px 0;
+}
+
+.review-info {
+    font-size: 0.75rem;
+    color: #888;
+}
+
+/* ===================== TOAST ===================== */
+.toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: #333;
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    z-index: 1000;
+}

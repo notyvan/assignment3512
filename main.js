@@ -2,7 +2,8 @@ import config from './data/data-minifed.json' with { type: 'json' };
 import { setUpFilterAccordions, buildCategoryFilters, getFilters, filterProducts, sortProducts, setUpBrowseFilters } from './browse.js';
 import { makeStars, renderBreadcrumb, renderSpecs, renderReviews, setUpProductTabs } from './product.js';
 import { showToast } from './toast.js';
-
+import config from './data/data-minifed.json' with { type: 'json' };
+import { getProducts } from './data.js';
 
 // Helper Functions
 const $ = (selector) => document.querySelector(selector);
@@ -10,7 +11,9 @@ const $$ = (selector) => document.querySelectorAll(selector);
 const _ = (createElement) => document.createElement(createElement);
 
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    // Load products once (localStorage, or fetch the first time)
+    const products = await getProducts();
 
 
     // Trying to do adding to cart updating
@@ -248,8 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //Draws the Browse grid using the sort and current filters.
     function renderBrowse(){
         const filters = getFilters();
-        const matches = sortProducts(filterProducts(config.products, filters), filters.sortBy);
-
+        const matches = sortProducts(filterProducts(products, filters), filters.sortBy);
         productsContainer.innerHTML = "";
         for(let p of matches){
             productsContainer.appendChild(createProductElement(p));
@@ -336,7 +338,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Browse filters (browse.js)
         setUpFilterAccordions();
-        buildCategoryFilters(config.products);
+        buildCategoryFilters(products);
         setUpBrowseFilters(renderBrowse);
         renderBrowse();
 

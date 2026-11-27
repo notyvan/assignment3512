@@ -24,7 +24,7 @@
                 <div class="nav-links">
                     <a href="#" data-view="home">Home</a>
                     <a href="#" data-view="browse">Browse</a>
-                    <a href="#" data-view="about">About</a>
+                    <a href="#" id="about-btn">About</a>
                 </div>
 
                 <a href="#" class="cart" data-view="cart">CART <span id="cart-count">0</span></a>
@@ -214,9 +214,45 @@
 
 
         <!-- About us View -->
-        <section id="about" class="view hidden" >
-
-        </section>
+        <dialog id="about">
+            <button class="about-close about-x" aria-label="Close">✕</button>
+    
+            <div class="about-content">
+                <h2>About Us</h2>
+                <p class="about-intro">
+                    A single-page shopping app built for COMP 3512 (Assignment 2).
+                    Browse and filter products, view product details, and manage a
+                    shopping cart, all without leaving the page.
+                </p>
+    
+                <div class="about-section">
+                    <h3>Team</h3>
+                    <ul>
+                        <li>Laeeq Ladha</li>
+                        <li>Yvan [last name]</li>
+                    </ul>
+                </div>
+    
+                <div class="about-section">
+                    <h3>Technologies</h3>
+                    <ul>
+                        <li>HTML, CSS and plain JavaScript (ES modules, no libraries)</li>
+                        <li>Fetch API with the DummyJSON products API</li>
+                        <li>localStorage for the product data and the cart</li>
+                        <li>Hosted on GitHub Pages</li>
+                    </ul>
+                </div>
+    
+                <div class="about-section">
+                    <h3>Source Code</h3>
+                    <a href="https://github.com/notyvan/assignment3512" target="_blank">github.com/notyvan/assignment3512</a>
+                </div>
+            </div>
+    
+            <div class="about-footer">
+                <button class="about-close about-close-btn">Close</button>
+            </div>
+        </dialog>
 
     </main>
 

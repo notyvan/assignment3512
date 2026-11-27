@@ -543,3 +543,108 @@ main {
 
 
 
+
+/* ===================== ABOUT DIALOG ===================== */
+#about {
+    margin: auto;                 /* centre it (the reset removed this) */
+    width: min(640px, 90vw);
+    max-height: 80vh;
+    border: none;
+    border-radius: 8px;
+    background: #f3f3f3;
+    padding: 0;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+}
+
+/* Only use flex while it's open, otherwise it would always show */
+#about[open] {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Darken the page behind */
+#about::backdrop {
+    background: rgba(0, 0, 0, 0.6);
+}
+
+/* Scrollable middle area */
+.about-content {
+    padding: 36px 40px 16px;
+    overflow-y: auto;
+}
+
+.about-content h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.about-intro {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/* Team / Technologies / Source Code as white cards */
+.about-section {
+    background: #fff;
+    border-radius: 6px;
+    padding: 14px 18px;
+    margin-bottom: 12px;
+}
+
+.about-section h3 {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #4a7fc1;
+    margin-bottom: 8px;
+}
+
+.about-section ul {
+    padding-left: 20px;
+    line-height: 1.7;
+}
+
+.about-section a {
+    color: #4a7fc1;
+    font-weight: 600;
+}
+
+/* Circled X in the top-right corner */
+.about-x {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 32px;
+    height: 32px;
+    border: 1px solid #999;
+    border-radius: 50%;
+    background: #fff;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.about-x:hover {
+    background: #e0e0e0;
+}
+
+/* Close button at the bottom right */
+.about-footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 12px 24px 20px;
+    border-top: 1px solid #ddd;
+}
+
+.about-close-btn {
+    padding: 8px 24px;
+    border: 1px solid #999;
+    background: #e0e0e0;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.about-close-btn:hover {
+    background: #d0d0d0;
+}

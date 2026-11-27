@@ -2,6 +2,7 @@ import { setUpFilterAccordions, buildCategoryFilters, getFilters, filterProducts
 import { makeStars, renderBreadcrumb, renderSpecs, renderReviews, setUpProductTabs } from './product.js';
 import { showToast } from './toast.js';
 import { getProducts } from './data.js';
+import { setUpAboutDialog } from './about.js';
 
 // Helper Functions
 const $ = (selector) => document.querySelector(selector);
@@ -192,8 +193,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // nav link and view swtiching
     const views = $$(".view");
-    const navLinks = $$(".navbar a");
-
+    const navLinks = $$(".navbar a[data-view]");
     function showView(name) {
         for (let v of views) {
             v.classList.add("hidden");
@@ -355,6 +355,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         setUpProductTabs();
         updateCartCount();
+        setUpAboutDialog();
 
 });
 

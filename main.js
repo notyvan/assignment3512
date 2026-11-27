@@ -1,7 +1,6 @@
 import { setUpFilterAccordions, buildCategoryFilters, getFilters, filterProducts, sortProducts, setUpBrowseFilters } from './browse.js';
 import { makeStars, renderBreadcrumb, renderSpecs, renderReviews, setUpProductTabs } from './product.js';
 import { showToast } from './toast.js';
-import config from './data/data-minifed.json' with { type: 'json' };
 import { getProducts } from './data.js';
 
 // Helper Functions
@@ -10,17 +9,28 @@ const $$ = (selector) => document.querySelectorAll(selector);
 const _ = (createElement) => document.createElement(createElement);
 
 
+
+
+
+
+
+
 document.addEventListener('DOMContentLoaded', async () => {
     // Load products once (localStorage, or fetch the first time)
     const products = await getProducts();
 
 
-    // Trying to do adding to cart updating
-    // Cart updated in header but havent done anything for cart screen
-    const cart = [];
+    //load the saved cart so it persists across page reloads
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+
+
     let currentProduct = null;
 
     function updateCartCount() {
+        // Save the cart every time it changes (add, remove, checkout)
+        localStorage.setItem("cart", JSON.stringify(cart));
+
         let total = 0;
         for (let item of cart) {
             total += item.quantity;
@@ -34,7 +44,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         const inCart = existing ? existing.quantity : 0;
 
         if (inCart + quantity > product.stock) {
-            showToast(`Sorry, only ${product.stock} in stock (you already have ${inCart} in your cart).`);            return false;
+            showToast(`Sorry, only ${product.stock} in stock (you already have ${inCart} in your cart).`);           
+             return false;
         }
 
         if (existing) {
@@ -159,7 +170,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         $("#cart-shipping-method").value = "standard";
         $("#cart-destination").value = "canada";
         updateCartCount();
-        showToast("TAHNKS");
+        showToast("Thank you! Your order has been placed.");
         showView("home");
     });
     
@@ -169,7 +180,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         const qty = parseInt($("#product-qty").value);
 
         if (isNaN(qty) || qty < 1) {
-            showToast("Please enter a quantity of 1 or more.");            return;
+            showToast("Please enter a quantity of 1 or more.");           
+             return;
         }
 
         addToCart(currentProduct, qty);

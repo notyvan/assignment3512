@@ -1,4 +1,3 @@
-import config from './data/data-minifed.json' with { type: 'json' };
 import { setUpFilterAccordions, buildCategoryFilters, getFilters, filterProducts, sortProducts, setUpBrowseFilters } from './browse.js';
 import { makeStars, renderBreadcrumb, renderSpecs, renderReviews, setUpProductTabs } from './product.js';
 import { showToast } from './toast.js';
